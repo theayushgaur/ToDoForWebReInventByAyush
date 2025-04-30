@@ -26,7 +26,6 @@ class TaskListProvider extends ChangeNotifier {
         _lists = savedLists;
       }
     } catch (e) {
-      // Use default lists if there's an error
       _lists = ['Personal', 'Work', 'Shopping', 'Other'];
     }
 
@@ -34,7 +33,6 @@ class TaskListProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Ensure any list names from tasks are added to the available lists
   Future<void> syncListsWithTasks(List<Task> tasks) async {
     bool hasChanges = false;
     for (final task in tasks) {
@@ -73,7 +71,7 @@ class TaskListProvider extends ChangeNotifier {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setStringList('task_lists', _lists);
     } catch (e) {
-      // Handle error
+      print('Error saving lists: $e');
     }
   }
 }

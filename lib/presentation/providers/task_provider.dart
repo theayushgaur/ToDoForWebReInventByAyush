@@ -29,7 +29,6 @@ class TaskProvider extends ChangeNotifier {
 
     _tasks = await _getTasks();
 
-    // Sort tasks by creation date - newest first
     _tasks.sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
     _isLoading = false;
@@ -43,7 +42,6 @@ class TaskProvider extends ChangeNotifier {
       await _addTask(task);
       _tasks = await _getTasks();
 
-      // Sort tasks by creation date - newest first
       _tasks.sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
       _isLoading = false;
@@ -62,7 +60,6 @@ class TaskProvider extends ChangeNotifier {
       await _updateTask(task);
       _tasks = await _getTasks();
 
-      // Sort tasks by creation date - newest first
       _tasks.sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
       _isLoading = false;
@@ -81,7 +78,6 @@ class TaskProvider extends ChangeNotifier {
       await _deleteTask(id);
       _tasks = await _getTasks();
 
-      // Sort tasks by creation date - newest first
       _tasks.sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
       _isLoading = false;
@@ -116,7 +112,6 @@ class TaskProvider extends ChangeNotifier {
       await _updateTask(updatedTask);
       _tasks = await _getTasks();
 
-      // Sort tasks by creation date - newest first
       _tasks.sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
       _isLoading = false;
@@ -130,14 +125,11 @@ class TaskProvider extends ChangeNotifier {
 
   Future<void> addInitialTasksIfEmpty() async {
     try {
-      // First load the current tasks
       _isLoading = true;
       notifyListeners();
       _tasks = await _getTasks();
 
-      // We're not adding initial tasks anymore, just sort the existing ones if any
       if (_tasks.isNotEmpty) {
-        // Sort by creation date - newest first
         _tasks.sort((a, b) => b.createdAt.compareTo(a.createdAt));
       }
 

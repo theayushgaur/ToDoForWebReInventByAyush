@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  // Main colors
   static const Color primaryColor = Color(0xFFF9D949);
   static const Color primaryDarkColor = Color(0xFFE7C642);
   static const Color accentColor = Color(0xFF3B82F6);
@@ -11,21 +10,17 @@ class AppTheme {
   static const Color cardColor = Colors.white;
   static const Color errorColor = Color(0xFFEF4444);
 
-  // Text colors
   static const Color textDarkColor = Color(0xFF1E293B);
   static const Color textMediumColor = Color(0xFF64748B);
   static const Color textLightColor = Color(0xFF94A3B8);
 
-  // Success, info, warning colors
   static const Color successColor = Color(0xFF22C55E);
   static const Color infoColor = Color(0xFF0EA5E9);
   static const Color warningColor = Color(0xFFF97316);
 
-  // Border and divider colors
   static const Color borderColor = Color(0xFFE2E8F0);
   static const Color dividerColor = Color(0xFFE2E8F0);
 
-  // Shadows
   static BoxShadow defaultShadow = BoxShadow(
     color: Colors.black.withOpacity(0.05),
     blurRadius: 10,
@@ -38,21 +33,18 @@ class AppTheme {
     offset: const Offset(0, 1),
   );
 
-  // Spacings
   static const double spacing_xs = 4.0;
   static const double spacing_sm = 8.0;
   static const double spacing_md = 16.0;
   static const double spacing_lg = 24.0;
   static const double spacing_xl = 32.0;
 
-  // Border radius
   static final BorderRadius radiusSmall = BorderRadius.circular(4);
   static final BorderRadius radiusMedium = BorderRadius.circular(8);
   static final BorderRadius radiusLarge = BorderRadius.circular(16);
   static final BorderRadius radiusXLarge = BorderRadius.circular(24);
   static final BorderRadius radiusFull = BorderRadius.circular(999);
 
-  // Text styles
   static const TextStyle headingLarge = TextStyle(
     fontSize: 28,
     fontWeight: FontWeight.bold,
@@ -102,7 +94,6 @@ class AppTheme {
     height: 1.4,
   );
 
-  // Button styles
   static ButtonStyle primaryButtonStyle = ElevatedButton.styleFrom(
     backgroundColor: primaryColor,
     foregroundColor: textDarkColor,
@@ -118,7 +109,6 @@ class AppTheme {
     shape: RoundedRectangleBorder(borderRadius: radiusMedium),
   );
 
-  // Input decoration
   static InputDecoration inputDecoration(String hintText) {
     return InputDecoration(
       hintText: hintText,
@@ -141,7 +131,6 @@ class AppTheme {
     );
   }
 
-  // Theme data
   static ThemeData get lightTheme {
     return ThemeData(
       primaryColor: primaryColor,

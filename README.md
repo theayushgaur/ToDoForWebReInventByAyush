@@ -1,6 +1,10 @@
-# Organic Mind - A Modern Todo App
+# SyncStrive - A Modern Todo App
 
-A beautiful and efficient todo application built with Flutter, featuring a clean UI and intuitive task management.
+A beautiful and efficient todo application built with Flutter, featuring a clean UI and intuitive task management. This app was created as a task for WebReInvent.
+
+## About
+
+SyncStrive is a productivity tool designed to help users organize their daily tasks with a modern interface and smooth user experience. It was developed as part of a technical assessment task for WebReInvent.
 
 ## Features
 
@@ -28,13 +32,13 @@ A beautiful and efficient todo application built with Flutter, featuring a clean
 1. Clone the repository
 
    ```
-   git clone https://github.com/yourusername/organic-mind.git
+   git clone https://github.com/yourusername/syncstrive.git
    ```
 
 2. Navigate to the project directory
 
    ```
-   cd organic-mind
+   cd syncstrive
    ```
 
 3. Install dependencies

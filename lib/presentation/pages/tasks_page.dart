@@ -8,65 +8,50 @@ import '../widgets/task_item.dart';
 import '../theme/app_theme.dart';
 import 'task_detail_page.dart';
 
-class TasksPage extends StatefulWidget {
+class TasksPage extends StatelessWidget {
   const TasksPage({Key? key}) : super(key: key);
 
   @override
-  State<TasksPage> createState() => _TasksPageState();
-}
-
-class _TasksPageState extends State<TasksPage> {
-  @override
-  void initState() {
-    super.initState();
-    // Add initial tasks if list is empty and sync lists
+  Widget build(BuildContext context) {
+    // Initialize data on first build
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final taskProvider = Provider.of<TaskProvider>(context, listen: false);
       await taskProvider.addInitialTasksIfEmpty();
 
-      // Sync task lists with the list provider
       final listProvider =
           Provider.of<TaskListProvider>(context, listen: false);
       await listProvider.syncListsWithTasks(taskProvider.tasks);
     });
-  }
 
-  void _openTaskDetail({Task? task}) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => TaskDetailPage(
-          task: task,
-          onSave: (updatedTask) async {
-            final provider = Provider.of<TaskProvider>(context, listen: false);
+    void openTaskDetail({Task? task}) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => TaskDetailPage(
+            task: task,
+            onSave: (updatedTask) async {
+              final provider =
+                  Provider.of<TaskProvider>(context, listen: false);
 
-            if (task != null) {
-              // Update existing task
-              await provider.updateTask(updatedTask);
-            } else {
-              // Add new task
-              await provider.addTask(updatedTask);
-            }
-            if (mounted) {
+              if (task != null) {
+                await provider.updateTask(updatedTask);
+              } else {
+                await provider.addTask(updatedTask);
+              }
               Navigator.of(context).pop();
-            }
-          },
-          onDelete: task != null
-              ? () async {
-                  final provider =
-                      Provider.of<TaskProvider>(context, listen: false);
-                  await provider.deleteTask(task.id);
-                  if (mounted) {
+            },
+            onDelete: task != null
+                ? () async {
+                    final provider =
+                        Provider.of<TaskProvider>(context, listen: false);
+                    await provider.deleteTask(task.id);
                     Navigator.of(context).pop();
                   }
-                }
-              : null,
+                : null,
+          ),
         ),
-      ),
-    );
-  }
+      );
+    }
 
-  @override
-  Widget build(BuildContext context) {
     return Consumer<TaskProvider>(
       builder: (context, taskProvider, child) {
         final tasks = taskProvider.tasks;
@@ -101,24 +86,19 @@ class _TasksPageState extends State<TasksPage> {
             actions: [
               IconButton(
                 icon: const Icon(Icons.search, color: AppTheme.textDarkColor),
-                onPressed: () {
-                  // Search functionality
-                },
+                onPressed: () {},
                 tooltip: 'Search tasks',
               ),
               IconButton(
                 icon:
                     const Icon(Icons.more_vert, color: AppTheme.textDarkColor),
-                onPressed: () {
-                  // Menu options
-                },
+                onPressed: () {},
                 tooltip: 'More options',
               ),
             ],
           ),
           body: Column(
             children: [
-              // Add New Task Button
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -130,7 +110,7 @@ class _TasksPageState extends State<TasksPage> {
                     side: const BorderSide(color: AppTheme.borderColor),
                   ),
                   child: InkWell(
-                    onTap: () => _openTaskDetail(),
+                    onTap: () => openTaskDetail(),
                     borderRadius: AppTheme.radiusMedium,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -154,8 +134,6 @@ class _TasksPageState extends State<TasksPage> {
                   ),
                 ),
               ),
-
-              // Tasks list
               Expanded(
                 child: taskProvider.isLoading
                     ? Center(
@@ -190,7 +168,7 @@ class _TasksPageState extends State<TasksPage> {
                                 ),
                                 const SizedBox(height: 32),
                                 ElevatedButton.icon(
-                                  onPressed: () => _openTaskDetail(),
+                                  onPressed: () => openTaskDetail(),
                                   icon: const Icon(Icons.add),
                                   label: const Text('Create First Task'),
                                   style: AppTheme.primaryButtonStyle,
@@ -210,7 +188,7 @@ class _TasksPageState extends State<TasksPage> {
                                 task: task,
                                 onToggle: () =>
                                     taskProvider.toggleTaskStatus(task),
-                                onTap: () => _openTaskDetail(task: task),
+                                onTap: () => openTaskDetail(task: task),
                               );
                             },
                           ),
@@ -220,7 +198,7 @@ class _TasksPageState extends State<TasksPage> {
           floatingActionButton: tasks.isEmpty
               ? null
               : FloatingActionButton(
-                  onPressed: () => _openTaskDetail(),
+                  onPressed: () => openTaskDetail(),
                   backgroundColor: AppTheme.primaryColor,
                   child: const Icon(Icons.add, color: AppTheme.textDarkColor),
                 ),
